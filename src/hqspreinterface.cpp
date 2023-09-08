@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <sstream>
+#include <limits>
 
 #include <easylogging++.hpp>
 #include <formula.hpp>

@@ -25,6 +25,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <iosfwd>
+#include <limits>
 
 /**
  * \file bool_vector.hpp

@@ -2,6 +2,7 @@
 #include <map>
 #include <iostream>
 #include <fstream>
+#include <limits>
 
 #include "auxil.hpp"
 #include "formula.hpp"

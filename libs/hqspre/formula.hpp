@@ -31,6 +31,7 @@
 #include <unordered_set>
 #include <utility>
 #include <vector>
+#include <limits>
 
 #include "auxil.hpp"
 #include "clause.hpp"

@@ -28,6 +28,8 @@
  * \date 12/2015-03/2016
  */
 
+#include <limits>
+
 namespace hqspre {
 
 /**

@@ -415,11 +415,14 @@ void Formula::eliminatePossibleVars() {
             break;
         }
 
-        if (qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts) {
+        /*if (qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts) {
             eliminateUnivVar(uVarToEliminate, true);
         } else {
             eliminateUnivVar(uVarToEliminate, false);
-        }
+        }*/
+
+        bool alreadyComputed = qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts;
+        eliminateUnivVar(uVarToEliminate, alreadyComputed);
         
         removeUnusedVars();
     }

@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/antom.dir/Core/solverstate.cpp.o"
+  "CMakeFiles/antom.dir/Core/solverstate.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/bce.cpp.o"
+  "CMakeFiles/antom.dir/prepro/bce.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/bva.cpp.o"
+  "CMakeFiles/antom.dir/prepro/bva.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/hte.cpp.o"
+  "CMakeFiles/antom.dir/prepro/hte.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/modelrebuilder.cpp.o"
+  "CMakeFiles/antom.dir/prepro/modelrebuilder.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/preprocessor.cpp.o"
+  "CMakeFiles/antom.dir/prepro/preprocessor.cpp.o.d"
+  "CMakeFiles/antom.dir/prepro/upla.cpp.o"
+  "CMakeFiles/antom.dir/prepro/upla.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/antom.cpp.o"
+  "CMakeFiles/antom.dir/solver/antom.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/antombase.cpp.o"
+  "CMakeFiles/antom.dir/solver/antombase.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/bucket.cpp.o"
+  "CMakeFiles/antom.dir/solver/bucket.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/cascade.cpp.o"
+  "CMakeFiles/antom.dir/solver/cascade.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/debug.cpp.o"
+  "CMakeFiles/antom.dir/solver/debug.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/multiplecascade.cpp.o"
+  "CMakeFiles/antom.dir/solver/multiplecascade.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/parser.cpp.o"
+  "CMakeFiles/antom.dir/solver/parser.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/settings.cpp.o"
+  "CMakeFiles/antom.dir/solver/settings.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/solverproxy.cpp.o"
+  "CMakeFiles/antom.dir/solver/solverproxy.cpp.o.d"
+  "CMakeFiles/antom.dir/solver/sorter.cpp.o"
+  "CMakeFiles/antom.dir/solver/sorter.cpp.o.d"
+  "libantom.a"
+  "libantom.pdb"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/antom.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

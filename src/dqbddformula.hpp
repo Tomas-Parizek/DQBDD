@@ -28,6 +28,7 @@
 
 #include "dqbddvariable.hpp"
 #include "quantifiedvariablesmanipulator.hpp"
+#include "dqbddmodel.hpp"
 
 namespace dqbdd {
 
@@ -46,8 +47,15 @@ private:
     std::vector<Variable> univVarsOrderToRemove;
     // used for NumOfLeftoverVarsInConjuncts, we save the conjuncts for minimal variable here
     BDD minf1,minf2;
+
+    // (original, new name, univ var)
+    std::vector<UniversalReduction> renamedVars = {};
+
     void initializeUnivVarEliminationOrder();
     Variable getUnivVarToEliminate();
+
+    Model *model = new Model(mgr);
+    VariableSet eVariablesToEvaluate;
 
 protected:
     bool needsToRecomputeSupportSet() const;

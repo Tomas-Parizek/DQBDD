@@ -3,6 +3,8 @@ add_executable(dqbdd
                 dqbddexceptions.hpp
                 dqbddformula.cpp
                 dqbddformula.hpp
+                dqbddmodel.cpp
+                dqbddmodel.hpp
                 hqspreinterface.cpp
                 hqspreinterface.hpp
                 main.cpp

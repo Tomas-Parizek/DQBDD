@@ -26,9 +26,9 @@
 
 namespace dqbdd {
 
-Formula::Formula(const Cudd &mgr, QuantifiedVariablesManager &qvmgr) : QuantifiedVariablesManipulator(qvmgr), mgr(mgr) {}
+Formula::Formula(const Cudd &mgr, QuantifiedVariablesManager &qvmgr) : QuantifiedVariablesManipulator(qvmgr), mgr(mgr), eVariablesToEvaluate(getExistVars()) {}
 
-Formula::Formula(const Cudd &mgr, QuantifiedVariablesManipulator &qvManipulator) : QuantifiedVariablesManipulator(qvManipulator), mgr(mgr) {}
+Formula::Formula(const Cudd &mgr, QuantifiedVariablesManipulator &qvManipulator) : QuantifiedVariablesManipulator(qvManipulator), mgr(mgr), eVariablesToEvaluate(getExistVars()) {}
 
 BDD Formula::getMatrix() const {
     return matrix;
@@ -119,7 +119,10 @@ void Formula::eliminateUnivVar(Variable uVarToEliminate, bool useAlreadyComputed
         addExistVar(newExistVar, getExistVarDependencies(eVarToDuplicate));
         varsToBeReplaced.push_back(eVarToDuplicate);
         varsToReplaceWith.push_back(newExistVar);
+
+        renamedVars.emplace_back(eVarToDuplicate, newExistVar, uVarToEliminate);
     }
+
     VLOG(3) << logHeader.str() << "Replacing existential vars with new ones in restriction 2";
     f2 = f2.SwapVariables(varsToBeReplaced, varsToReplaceWith);
     if (dynReordering) {
@@ -149,18 +152,27 @@ void Formula::eliminateExistVars(VariableSet existVarsToEliminate) {
     /* for eliminating multiple existential variables it was just a tiny bit
      * better on benchmarks from QBFEVAL'19 to eliminate them at the same time 
      * using ExistAbstract with the cube of exist vars to eliminate
-     */
+     *
     BDD CubeToRemove = mgr.bddOne();
     for (const Variable &eVarToEliminate : existVarsToEliminate) {
+        BDD skolemFunction = Model::substitute(mgr, getMatrix(), mgr.bddOne(), eVarToEliminate.getId());
+        model->substituteInAll(eVarToEliminate.getId(), skolemFunction);
+        model->getEvaluation()->emplace(eVarToEliminate.getId(), skolemFunction);
+
         CubeToRemove = CubeToRemove & eVarToEliminate;
         removeExistVar(eVarToEliminate);
     }
     setMatrix(matrix.ExistAbstract(CubeToRemove));
+    */
 
     // this is if we do it one by one, it was sometimes a tiny bit slower
-    //for (const Variable &eVarToEliminate : existVarsToEliminate) {
-    //    eliminateExistVar(eVarToEliminate);
-    //}
+    for (const Variable &eVarToEliminate : existVarsToEliminate) {
+        BDD skolemFunction = Model::substitute(mgr, getMatrix(), mgr.bddOne(), eVarToEliminate.getId());
+        model->substituteInAll(eVarToEliminate.getId(), skolemFunction);
+        model->getEvaluation()->emplace(eVarToEliminate.getId(), skolemFunction);
+
+        eliminateExistVar(eVarToEliminate);
+    }
 
     VLOG(2) << "eliminateExistVars: Exist vars eliminated";
 }
@@ -415,14 +427,11 @@ void Formula::eliminatePossibleVars() {
             break;
         }
 
-        /*if (qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts) {
+        if (qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts) {
             eliminateUnivVar(uVarToEliminate, true);
         } else {
             eliminateUnivVar(uVarToEliminate, false);
-        }*/
-
-        bool alreadyComputed = qvMgr->options.uVarElimChoice == UnivVarElimChoice::NumOfLeftoverVarsInConjuncts;
-        eliminateUnivVar(uVarToEliminate, alreadyComputed);
+        }
         
         removeUnusedVars();
     }
@@ -435,6 +444,24 @@ void Formula::eliminatePossibleVars() {
     if (getExistVars().size() == qvMgr->getNumberOfExistVars() // all existential variables are in this formula --> it is not a subformula but whole formula
          && getSupportSet().size() == getExistVars().size()) { // only existential variables are here
         if (!getMatrix().IsZero()) {
+            model->evaluateFormula(matrix, getExistVars());
+
+            for (auto &i : eVariablesToEvaluate)
+            {
+                if (!model->isVarInModel(i))
+                {
+                    // Can be both zero/one
+                    model->getEvaluation()->emplace(i.getId(), mgr.bddZero());
+                    model->substituteInAll(i.getId(), mgr.bddZero());
+                }
+            }
+
+            for (auto &i : renamedVars)
+            {
+                model->createSkolemFunction(i);
+            }
+            model->printModel();
+
             setMatrix(mgr.bddOne());
             clear();
         }

@@ -20,6 +20,7 @@
 #ifndef DQBDD_HQSPRE_INTERFACE_HPP
 #define DQBDD_HQSPRE_INTERFACE_HPP
 
+#include <limits.h>
 #include "gateparser.hpp"
 
 namespace dqbdd {

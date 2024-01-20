@@ -1,0 +1,4 @@
+#QCIR-G14 2
+exists(1)
+output(2)
+2 = and(1, -1)

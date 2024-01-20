@@ -107,17 +107,18 @@ unsigned QuantifierTreeConnection::getNumOfParents() {
     return numOfParents;
 }
 
-QuantifierTreeFormula* QuantifierTreeConnection::changeChildToQuantifierTreeFormula(Cudd &mgr) {
-    QuantifierTreeFormula* childFormula = child->changeToFormula(mgr);
-    child = childFormula;
-    return childFormula;
-}
-
 /*******************************************/
 /*******************************************/
 /************ QUANTIFIER TREE **************/
 /*******************************************/
 /*******************************************/ 
+
+
+QuantifierTreeFormula* QuantifierTreeConnection::changeChildToQuantifierTreeFormula(Cudd &mgr) {
+    QuantifierTreeFormula* childFormula = child->changeToFormula(mgr);
+    child = childFormula;
+    return childFormula;
+}
 
 QuantifierTree::QuantifierTree(bool isConj, std::list<QuantifierTreeConnection*> childrenConnections, QuantifiedVariablesManager &qvMgr, bool collapseChildren, bool changeNumOfParents) : QuantifiedVariablesManipulator(qvMgr), QuantifierTreeNode(qvMgr), isConj(isConj) {
     supportSet = {};

@@ -1,0 +1,20 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/user/Vysoká škola/3. Semestr/Projektová praxe/DQBDD/libs/picosat/picosat.c" "libs/picosat/CMakeFiles/picosat.dir/picosat.c.o" "gcc" "libs/picosat/CMakeFiles/picosat.dir/picosat.c.o.d"
+  "/home/user/Vysoká škola/3. Semestr/Projektová praxe/DQBDD/libs/picosat/version.c" "libs/picosat/CMakeFiles/picosat.dir/version.c.o" "gcc" "libs/picosat/CMakeFiles/picosat.dir/version.c.o.d"
+  )
+
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
